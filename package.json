@@ -1,0 +1,11 @@
+{
+  "name": "learning-management-app",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "preview": "npm run preview --prefix client",
+    "lint": "npm run lint --prefix client",
+    "typecheck": "npm run typecheck --prefix client"
+  }
+}
