@@ -180,14 +180,19 @@ export class PostgresRepository implements LmsRepository {
         course = { ...courseRow, lessons: [] };
         coursesById.set(course.id, course);
       }
-      if (row.lessonId !== null) {
+      if (
+        row.lessonId !== null &&
+        row.lessonTitle !== null &&
+        row.lessonTitleAr !== null &&
+        row.lessonDuration !== null
+      ) {
         course.lessons.push({
           id: row.lessonId,
-          title: row.lessonTitle!,
-          titleAr: row.lessonTitleAr!,
+          title: row.lessonTitle,
+          titleAr: row.lessonTitleAr,
           content: "",
           contentAr: "",
-          duration: row.lessonDuration!,
+          duration: row.lessonDuration,
           completed: row.completed ?? false,
         });
       }
@@ -214,8 +219,9 @@ export class PostgresRepository implements LmsRepository {
        WHERE l.id = $1`,
       [lessonId, userId ?? null],
     );
-    if (!result.rows[0]) return null;
-    const { position: _position, ...lesson } = result.rows[0];
+    const row = result.rows[0];
+    if (!row) return null;
+    const { position: _position, ...lesson } = row;
     return lesson;
   }
 
@@ -341,7 +347,8 @@ export class PostgresRepository implements LmsRepository {
         (SELECT count(*) FROM enrollments)::text AS "enrollmentCount",
         (SELECT count(*) FROM users WHERE role = 'student')::text AS "studentCount"`,
     );
-    const row = result.rows[0]!;
+    const row = result.rows[0];
+    if (!row) throw new Error("Admin statistics query returned no row");
     return {
       courseCount: Number(row.courseCount),
       lessonCount: Number(row.lessonCount),
