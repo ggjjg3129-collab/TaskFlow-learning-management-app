@@ -13,6 +13,8 @@ The frontend URL responded during the README review. The API health route return
 
 ## Architecture
 
+![TaskFlow LMS Architecture Diagram](screenshots/architecture-diagramm.png)
+
 ```text
 ┌─────────────────────┐
 │ Students / Admins   │
@@ -66,14 +68,14 @@ The client calls the API using `VITE_API_BASE_URL` and sends browser credentials
 
 ## Technology
 
-| Area | Technology |
-| --- | --- |
-| Frontend | React, TypeScript, Vite, React Router |
-| Backend | Node.js, Express, TypeScript |
-| Database | PostgreSQL on Neon |
-| Sessions | `express-session`, `connect-pg-simple` |
-| Validation | Zod |
-| Security middleware | Helmet, CORS, `express-rate-limit` |
+| Area                | Technology                             |
+| ------------------- | -------------------------------------- |
+| Frontend            | React, TypeScript, Vite, React Router  |
+| Backend             | Node.js, Express, TypeScript           |
+| Database            | PostgreSQL on Neon                     |
+| Sessions            | `express-session`, `connect-pg-simple` |
+| Validation          | Zod                                    |
+| Security middleware | Helmet, CORS, `express-rate-limit`     |
 
 ## Security and engineering notes
 
@@ -128,20 +130,20 @@ Set these variable names in the relevant local or hosting environment. Keep secr
 
 **Client (`client/.env`)**
 
-| Variable | Purpose |
-| --- | --- |
+| Variable            | Purpose                                                          |
+| ------------------- | ---------------------------------------------------------------- |
 | `VITE_API_BASE_URL` | Backend API origin; defaults locally to `http://localhost:3000`. |
 
 **Server (`server/.env`)**
 
-| Variable | Purpose |
-| --- | --- |
-| `DATABASE_URL` | PostgreSQL/Neon connection URL. |
-| `SESSION_SECRET` | Session-signing secret; at least 32 characters. |
-| `FRONTEND_ORIGIN` | Exact origin allowed for credentialed browser requests. |
-| `PORT` | API listening port; defaults to `3000`. |
-| `COOKIE_SECURE` | `true` for HTTPS deployment; `false` only for local HTTP. |
-| `TRUST_PROXY` | `true` only behind the supported trusted HTTPS proxy; otherwise `false`. |
+| Variable          | Purpose                                                                  |
+| ----------------- | ------------------------------------------------------------------------ |
+| `DATABASE_URL`    | PostgreSQL/Neon connection URL.                                          |
+| `SESSION_SECRET`  | Session-signing secret; at least 32 characters.                          |
+| `FRONTEND_ORIGIN` | Exact origin allowed for credentialed browser requests.                  |
+| `PORT`            | API listening port; defaults to `3000`.                                  |
+| `COOKIE_SECURE`   | `true` for HTTPS deployment; `false` only for local HTTP.                |
+| `TRUST_PROXY`     | `true` only behind the supported trusted HTTPS proxy; otherwise `false`. |
 
 Admin bootstrap/reset scripts also accept temporary `ADMIN_NAME`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD` process environment variables. These are operational inputs, not persistent application configuration. See [server/README.md](./server/README.md) for their safe use.
 
